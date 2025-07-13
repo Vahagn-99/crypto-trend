@@ -36,7 +36,7 @@ class SyncPrices extends Command
             'limit' => '50'
         ]));
 
-        $this->info('Синхронизация успешно передана на обработку.');
+        $this->info('Успешная синхронизация!');
 
         return 0;
     }
