@@ -6,7 +6,7 @@ namespace App\Base\Coin\Dto;
 
 use App\Repository\Pagination;
 use Carbon\Carbon;
-use Spatie\LaravelData\Attributes\Validation\Rule;
+use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
@@ -23,22 +23,30 @@ class GetPriceLastUpdatesFilter extends Data
      * @param \App\Repository\Pagination $pagination
      */
     public function __construct(
-        #[Rule('string', 'date_format:Y-m-d')]
         #[WithCast(DateTimeInterfaceCast::class, 'Y-m-d')]
         public ?Carbon $from = null,
-        #[Rule('string', 'date_format:Y-m-d')]
         #[WithCast(DateTimeInterfaceCast::class, 'Y-m-d')]
         public ?Carbon $to = null,
-        #[Rule('string', 'in:usd')]
         public readonly string $vs_currency = 'usd',
-        #[Rule('string', 'in:coingecko')]
         public readonly string $used_provider = 'coingecko',
         public readonly Pagination $pagination = new Pagination(),
-    ) {
+    )
+    {
         $this->from ??= Carbon::now()->subDay()->startOfDay();
 
         if (! empty($this->to)) {
             $this->to = $this->to->endOfDay();
         }
+    }
+
+    public static function rules() : array
+    {
+        return [
+            'from' => ['string', 'date_format:Y-m-d'],
+            'to' => ['string', 'date_format:Y-m-d'],
+            'vs_currency' => ['string',  Rule::in(config('coin.available_vs_currencies'))],
+            'used_provider' => ['string', 'in:coingecko'],
+            'pagination' => ['array'],
+        ];
     }
 }

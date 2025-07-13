@@ -29,6 +29,14 @@ class SyncPrices extends Command
     {
         $currency = $this->option('currency');
 
+        if (! in_array($currency, config('coin.available_vs_currencies'))) {
+            $this->error("Недопустимая валюта: $currency");
+            $this->newLine();
+            $this->info("Доступные валюты: " . implode(', ', config('coin.available_vs_currencies')));
+
+            return 1;
+        }
+
         $this->info("Получение топ-50 монет в валюте: $currency");
 
         SyncCoinSnapshotJob::dispatch(MarketFilter::from([

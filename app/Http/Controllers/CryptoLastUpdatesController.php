@@ -39,43 +39,43 @@ class CryptoLastUpdatesController extends Controller
      *         name="from",
      *         in="query",
      *         required=false,
-     *         description="Дата начала выборки (формат: Y-m-d)",
-     *         @OA\Schema(type="string", format="date", example="2025-07-01")
+     *         description="Дата начала выборки (формат: 2025-07-01)",
+     *         @OA\Schema(type="string", format="date")
      *     ),
      *     @OA\Parameter(
      *          name="to",
      *          in="query",
      *          required=false,
-     *          description="Дата конца выборки (формат: Y-m-d)",
-     *          @OA\Schema(type="string", format="date", example="2025-07-01")
+     *          description="Дата конца выборки (формат: 2025-07-01)",
+     *          @OA\Schema(type="string", format="date")
      *      ),
      *     @OA\Parameter(
      *         name="vs_currency",
      *         in="query",
      *         required=false,
      *         description="Валюта отображения цен",
-     *         @OA\Schema(type="string", enum={"usd"}, default="usd")
+     *         @OA\Schema(type="string", default="usd")
      *     ),
      *     @OA\Parameter(
      *         name="provider",
      *         in="query",
      *         required=false,
      *         description="Провайдер данных",
-     *         @OA\Schema(type="string", enum={"coingecko"}, default="coingecko")
+     *         @OA\Schema(type="string", enum={"coingecko"})
      *     ),
      *     @OA\Parameter(
      *         name="per_page",
      *         in="query",
      *         required=false,
      *         description="Количество элементов на странице",
-     *         @OA\Schema(type="integer", default=50)
+     *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         required=false,
      *         description="Номер страницы",
-     *         @OA\Schema(type="integer", default=1)
+     *         @OA\Schema(type="integer")
      *     ),
      *
      *     @OA\Response(

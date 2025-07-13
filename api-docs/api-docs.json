@@ -221,23 +221,21 @@
                     {
                         "name": "from",
                         "in": "query",
-                        "description": "Дата начала выборки (формат: Y-m-d)",
+                        "description": "Дата начала выборки (формат: 2025-07-01)",
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "format": "date",
-                            "example": "2025-07-01"
+                            "format": "date"
                         }
                     },
                     {
                         "name": "to",
                         "in": "query",
-                        "description": "Дата конца выборки (формат: Y-m-d)",
+                        "description": "Дата конца выборки (формат: 2025-07-01)",
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "format": "date",
-                            "example": "2025-07-01"
+                            "format": "date"
                         }
                     },
                     {
@@ -247,10 +245,7 @@
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "default": "usd",
-                            "enum": [
-                                "usd"
-                            ]
+                            "default": "usd"
                         }
                     },
                     {
@@ -260,7 +255,6 @@
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "default": "coingecko",
                             "enum": [
                                 "coingecko"
                             ]
@@ -272,8 +266,7 @@
                         "description": "Количество элементов на странице",
                         "required": false,
                         "schema": {
-                            "type": "integer",
-                            "default": 50
+                            "type": "integer"
                         }
                     },
                     {
@@ -282,8 +275,7 @@
                         "description": "Номер страницы",
                         "required": false,
                         "schema": {
-                            "type": "integer",
-                            "default": 1
+                            "type": "integer"
                         }
                     }
                 ],
