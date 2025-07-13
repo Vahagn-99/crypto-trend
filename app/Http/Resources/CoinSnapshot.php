@@ -11,8 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     schema="CoinSnapshot",
  *     title="CoinSnapshot",
- *     @OA\Property(property="id", type="integer", example=2),
- *     @OA\Property(property="coin_id", type="integer", example="2"),
+ *     @OA\Property(property="coin_id", type="integer", example="bitcoin"),
  *     @OA\Property(property="price", type="integer", example="15000"),
  *     @OA\Property(property="volume", type="integer", example="15000"),
  *     @OA\Property(property="market_cap", type="integer", example="15000"),
@@ -33,7 +32,6 @@ class CoinSnapshot extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->resource->id,
             'coin_id' => $this->resource->coin_id,
             'price' => $this->resource->price,
             'volume' => $this->resource->volume,

@@ -230,6 +230,17 @@
                         }
                     },
                     {
+                        "name": "to",
+                        "in": "query",
+                        "description": "Дата конца выборки (формат: Y-m-d)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-07-01"
+                        }
+                    },
+                    {
                         "name": "vs_currency",
                         "in": "query",
                         "description": "Валюта отображения цен",
@@ -399,13 +410,9 @@
             "CoinSnapshot": {
                 "title": "CoinSnapshot",
                 "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": 2
-                    },
                     "coin_id": {
                         "type": "integer",
-                        "example": "2"
+                        "example": "bitcoin"
                     },
                     "price": {
                         "type": "integer",

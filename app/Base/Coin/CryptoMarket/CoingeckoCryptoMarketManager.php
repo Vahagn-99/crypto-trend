@@ -6,12 +6,17 @@ use App\Base\Coin\CryptoMarket\Dto\CoinMarketDto;
 use App\Base\Coin\CryptoMarket\Dto\MarketFilter;
 use App\Base\Coin\Exceptions\CryptoMarketException;
 use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Http;
 use Spatie\LaravelData\DataCollection;
 
 class CoingeckoCryptoMarketManager implements ICryptoMarketManager
 {
+    /**
+     * Данные по цене изменения за 24 часа
+     *
+     * @const string
+     */
+    const PRICE_CHANGE_24H = '24h';
+
     /** @var string */
     protected static string $base_url = 'https://api.coingecko.com/api/v3';
 
@@ -39,11 +44,11 @@ class CoingeckoCryptoMarketManager implements ICryptoMarketManager
     {
         $response = $this->http_client->get("/coins/markets", [
             'vs_currency' => $filter->vs_currency,
-            'order' => 'market_cap_desc',
             'per_page' => $filter->limit,
+            'order' => 'market_cap_desc',
             'page' => 1,
             'sparkline' => false,
-            'price_change_percentage' => '24h',
+            'price_change_percentage' => self::PRICE_CHANGE_24H,
         ]);
 
         if ($response->failed()) {

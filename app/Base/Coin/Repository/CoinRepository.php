@@ -7,6 +7,7 @@ namespace App\Base\Coin\Repository;
 use App\Models\Coin as CoinModel;
 use App\Base\Coin\Dto\GetPriceLastUpdatesFilter;
 use App\Repository\Query;
+use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class CoinRepository implements ICoinRepository
@@ -53,6 +54,7 @@ class CoinRepository implements ICoinRepository
             ->with([
                 'snapshots' => function ($query) use ($filter) {
                     $query->when(! empty($filter->from), fn($query) => $query->where('fetched_at', '>=', $filter->from));
+                    $query->when(! empty($filter->to), fn($query) => $query->where('fetched_at', '<=', $filter->to));
                     $query->when(! empty($filter->vs_currency), fn($query) => $query->where('vs_currency', $filter->vs_currency));
                     $query->when(! empty($filter->used_provider), fn($query) => $query->where('used_provider', $filter->used_provider));
                     $query->orderBy('fetched_at', 'asc');
@@ -70,6 +72,17 @@ class CoinRepository implements ICoinRepository
     //****************************************************************
     //************************ Проверки ******************************
     //****************************************************************
+
+    public function hasSnapshot(string $id, string $vs_currency, Carbon $fetched_at): bool
+    {
+        return $this->query->builder()
+            ->where('id', $id)
+            ->whereHas('snapshots', function ($query) use ($vs_currency, $fetched_at) {
+                $query->where('vs_currency', $vs_currency);
+                $query->where('fetched_at', '>=', $fetched_at->startOfDay());
+            })
+            ->exists();
+    }
 
     //****************************************************************
     //********************* Работа с билдерами ***********************

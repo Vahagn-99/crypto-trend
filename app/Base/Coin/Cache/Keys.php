@@ -6,6 +6,7 @@ namespace App\Base\Coin\Cache;
 
 use App\Base\Coin\Dto\GetPriceLastUpdatesFilter;
 use App\Models\Coin;
+use Carbon\Carbon;
 
 class Keys
 {

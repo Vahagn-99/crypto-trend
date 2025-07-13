@@ -17,6 +17,7 @@ class GetPriceLastUpdatesFilter extends Data
      * Constructor GetLastUpdatesFilter
      *
      * @param \Carbon\Carbon|null $from
+     * @param \Carbon\Carbon|null $to
      * @param string $vs_currency
      * @param string $used_provider
      * @param \App\Repository\Pagination $pagination
@@ -24,13 +25,20 @@ class GetPriceLastUpdatesFilter extends Data
     public function __construct(
         #[Rule('string', 'date_format:Y-m-d')]
         #[WithCast(DateTimeInterfaceCast::class, 'Y-m-d')]
-        public readonly ?Carbon $from = null,
+        public ?Carbon $from = null,
+        #[Rule('string', 'date_format:Y-m-d')]
+        #[WithCast(DateTimeInterfaceCast::class, 'Y-m-d')]
+        public ?Carbon $to = null,
         #[Rule('string', 'in:usd')]
         public readonly string $vs_currency = 'usd',
         #[Rule('string', 'in:coingecko')]
         public readonly string $used_provider = 'coingecko',
         public readonly Pagination $pagination = new Pagination(),
     ) {
-        //
+        $this->from ??= Carbon::now()->subDay()->startOfDay();
+
+        if (! empty($this->to)) {
+            $this->to = $this->to->endOfDay();
+        }
     }
 }

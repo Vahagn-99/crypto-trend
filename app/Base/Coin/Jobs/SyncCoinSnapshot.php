@@ -3,6 +3,7 @@
 namespace App\Base\Coin\Jobs;
 
 use App\Base\Coin\Repository\ICoinRepository;
+use Carbon\Carbon;
 use App\Models\{
     Coin as CoinModel,
     CoinSnapshot as CoinSnapshotModel,
@@ -79,6 +80,10 @@ class SyncCoinSnapshot implements ShouldQueue
                     $coin->save();
                 }
 
+                if ($coin_repository->hasSnapshot($item->id, $this->market_filter->vs_currency, Carbon::now()->subDay())) {
+                    continue;
+                }
+
                 $snapshot = new CoinSnapshotModel();
 
                 $snapshot->coin_id = $item->id;
@@ -86,7 +91,7 @@ class SyncCoinSnapshot implements ShouldQueue
                 $snapshot->market_cap = $item->market_cap;
                 $snapshot->volume = $item->volume;
                 $snapshot->percent_change_24h = $item->percent_change_24h;
-                $snapshot->fetched_at = $item->last_updated;
+                $snapshot->fetched_at = Carbon::now();
                 $snapshot->vs_currency = $this->market_filter->vs_currency;
                 $snapshot->used_provider = config('coin.providers')[get_class($market_manager)];
 

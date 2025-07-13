@@ -43,6 +43,13 @@ class CryptoLastUpdatesController extends Controller
      *         @OA\Schema(type="string", format="date", example="2025-07-01")
      *     ),
      *     @OA\Parameter(
+     *          name="to",
+     *          in="query",
+     *          required=false,
+     *          description="Дата конца выборки (формат: Y-m-d)",
+     *          @OA\Schema(type="string", format="date", example="2025-07-01")
+     *      ),
+     *     @OA\Parameter(
      *         name="vs_currency",
      *         in="query",
      *         required=false,
