@@ -30,6 +30,7 @@ docker compose up -d --build
 docker compose exec app bash
 
 composer install
+
 php artisan migrate --seed
 ```
 
