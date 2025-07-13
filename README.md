@@ -118,5 +118,5 @@ http://localhost/log-viewer
 ## 🧪 Тестирование
 
 ```bash
-docker compose exec app php artisan test
+php artisan test
 ```
