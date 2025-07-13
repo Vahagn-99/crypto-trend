@@ -78,9 +78,9 @@ php artisan sync:crypto
 GET /api/v1/prices
 ```
 
-Требует авторизации.  
 Параметры:
 - `from` — дата начала (формат `Y-m-d`)
+- `to` — дата начала (формат `Y-m-d`)
 - `vs_currency` — валюта (`usd`)
 - `provider` — провайдер данных (`coingecko`)
 - `pagination` — объект с настройками пагинации
